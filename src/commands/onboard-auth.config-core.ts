@@ -7,8 +7,10 @@ import {
   buildKilocodeProvider,
   buildKimiCodingProvider,
   buildQianfanProvider,
+  buildQianfanCodingProvider,
   buildXiaomiProvider,
   QIANFAN_DEFAULT_MODEL_ID,
+  QIANFAN_CODING_DEFAULT_MODEL_ID,
   XIAOMI_DEFAULT_MODEL_ID,
 } from "../agents/models-config.providers.js";
 import {
@@ -69,6 +71,7 @@ import {
   MISTRAL_DEFAULT_MODEL_ID,
   QIANFAN_BASE_URL,
   QIANFAN_DEFAULT_MODEL_REF,
+  QIANFAN_CODING_DEFAULT_MODEL_REF,
   KIMI_CODING_MODEL_ID,
   KIMI_CODING_MODEL_REF,
   MOONSHOT_BASE_URL,
@@ -569,7 +572,31 @@ export function applyQianfanProviderConfig(cfg: OpenClawConfig): OpenClawConfig 
   });
 }
 
+export function applyQianfanCodingProviderConfig(cfg: OpenClawConfig): OpenClawConfig {
+  const models = { ...cfg.agents?.defaults?.models };
+  models[QIANFAN_CODING_DEFAULT_MODEL_REF] = {
+    ...models[QIANFAN_CODING_DEFAULT_MODEL_REF],
+    alias: models[QIANFAN_CODING_DEFAULT_MODEL_REF]?.alias ?? "QIANFAN Coding",
+  };
+
+  const defaultModel = buildQianfanCodingProvider().models[0];
+
+  return applyProviderConfigWithDefaultModel(cfg, {
+    agentModels: models,
+    providerId: "qianfan-coding",
+    api: "openai-completions",
+    baseUrl: "https://qianfan.baidubce.com/v2/coding",
+    defaultModel,
+    defaultModelId: QIANFAN_CODING_DEFAULT_MODEL_ID,
+  });
+}
+
 export function applyQianfanConfig(cfg: OpenClawConfig): OpenClawConfig {
   const next = applyQianfanProviderConfig(cfg);
   return applyAgentDefaultModelPrimary(next, QIANFAN_DEFAULT_MODEL_REF);
+}
+
+export function applyQianfanCodingConfig(cfg: OpenClawConfig): OpenClawConfig {
+  const next = applyQianfanCodingProviderConfig(cfg);
+  return applyAgentDefaultModelPrimary(next, QIANFAN_CODING_DEFAULT_MODEL_ID);
 }

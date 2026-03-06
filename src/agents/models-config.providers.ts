@@ -187,6 +187,17 @@ const QIANFAN_DEFAULT_COST = {
   cacheWrite: 0,
 };
 
+export const QIANFAN_CODING_BASE_URL = "https://qianfan.baidubce.com/v2/coding";
+export const QIANFAN_CODING_DEFAULT_MODEL_ID = "qianfan-code-latest";
+const QIANFAN_CODING_DEFAULT_CONTEXT_WINDOW = 262144;
+const QIANFAN_CODING_DEFAULT_MAX_TOKENS = 32768;
+const QIANFAN_CODING_DEFAULT_COST = {
+  input: 0,
+  output: 0,
+  cacheRead: 0,
+  cacheWrite: 0,
+};
+
 const NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1";
 const NVIDIA_DEFAULT_MODEL_ID = "nvidia/llama-3.1-nemotron-70b-instruct";
 const NVIDIA_DEFAULT_CONTEXT_WINDOW = 131072;
@@ -868,6 +879,24 @@ export function buildQianfanProvider(): ProviderConfig {
   };
 }
 
+export function buildQianfanCodingProvider(): ProviderConfig {
+  return {
+    baseUrl: QIANFAN_CODING_BASE_URL,
+    api: "openai-completions",
+    models: [
+      {
+        id: QIANFAN_CODING_DEFAULT_MODEL_ID,
+        name: "Qianfan Code",
+        reasoning: true,
+        input: ["text", "image"],
+        cost: QIANFAN_CODING_DEFAULT_COST,
+        contextWindow: QIANFAN_CODING_DEFAULT_CONTEXT_WINDOW,
+        maxTokens: QIANFAN_CODING_DEFAULT_MAX_TOKENS,
+      },
+    ],
+  };
+}
+
 export function buildNvidiaProvider(): ProviderConfig {
   return {
     baseUrl: NVIDIA_BASE_URL,
@@ -1113,6 +1142,13 @@ export async function resolveImplicitProviders(params: {
     resolveApiKeyFromProfiles({ provider: "qianfan", store: authStore });
   if (qianfanKey) {
     providers.qianfan = { ...buildQianfanProvider(), apiKey: qianfanKey };
+  }
+
+  const qianfanCodingKey =
+    resolveEnvApiKeyVarName("qianfan-coding") ??
+    resolveApiKeyFromProfiles({ provider: "qianfan-coding", store: authStore });
+  if (qianfanCodingKey) {
+    providers["qianfan-coding"] = { ...buildQianfanCodingProvider(), apiKey: qianfanCodingKey };
   }
 
   const openrouterKey =

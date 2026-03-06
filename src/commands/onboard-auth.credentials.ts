@@ -471,6 +471,18 @@ export function setQianfanApiKey(
   });
 }
 
+export function setQianfanCodingApiKey(
+  key: SecretInput,
+  agentDir?: string,
+  options?: ApiKeyStorageOptions,
+) {
+  upsertAuthProfile({
+    profileId: "qianfan-coding:default",
+    credential: buildApiKeyCredential("qianfan-coding", key, undefined, options),
+    agentDir: resolveAuthAgentDir(agentDir),
+  });
+}
+
 export function setXaiApiKey(key: SecretInput, agentDir?: string, options?: ApiKeyStorageOptions) {
   upsertAuthProfile({
     profileId: "xai:default",

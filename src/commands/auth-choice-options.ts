@@ -115,9 +115,9 @@ const AUTH_CHOICE_GROUP_DEFS: {
   },
   {
     value: "qianfan",
-    label: "Qianfan",
+    label: "Baidu Qianfan",
     hint: "API key",
-    choices: ["qianfan-api-key"],
+    choices: ["qianfan-api-key", "qianfan-coding-api-key"],
   },
   {
     value: "copilot",
