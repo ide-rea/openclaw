@@ -651,6 +651,14 @@ function resolveSearchProvider(search?: WebSearchConfig): (typeof SEARCH_PROVIDE
 
   // Auto-detect provider from available API keys (alphabetical order)
   if (raw === "") {
+    // Baidu
+    const baiduConfig = resolveBaiduConfig(search);
+    if (resolveBaiduApiKey(baiduConfig)) {
+      logVerbose(
+        'web_search: no provider configured, auto-detected "baidu" from available API keys',
+      );
+      return "baidu";
+    }
     // Brave
     if (resolveSearchApiKey(search)) {
       logVerbose(
@@ -690,14 +698,6 @@ function resolveSearchProvider(search?: WebSearchConfig): (typeof SEARCH_PROVIDE
         'web_search: no provider configured, auto-detected "perplexity" from available API keys',
       );
       return "perplexity";
-    }
-    // Baidu
-    const baiduConfig = resolveBaiduConfig(search);
-    if (resolveBaiduApiKey(baiduConfig)) {
-      logVerbose(
-        'web_search: no provider configured, auto-detected "baidu" from available API keys',
-      );
-      return "baidu";
     }
   }
   return "brave";
