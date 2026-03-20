@@ -325,3 +325,7 @@
   - changed-files:
       - any-glob-to-any-file:
           - "extensions/fal/**"
+"extensions: baidu":
+  - changed-files:
+      - any-glob-to-any-file:
+          - "extensions/baidu/**"

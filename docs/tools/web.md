@@ -11,7 +11,7 @@ title: "Web Tools"
 
 OpenClaw ships two lightweight web tools:
 
-- `web_search` — Search the web using  Baidu Search API, Brave Search API, Firecrawl Search, Gemini with Google Search grounding, Grok, Kimi, Perplexity Search API, or Tavily Search API.
+- `web_search` — Search the web using Baidu Search API, Brave Search API, Firecrawl Search, Gemini with Google Search grounding, Grok, Kimi, Perplexity Search API, or Tavily Search API.
 - `web_fetch` — HTTP fetch + readable extraction (HTML → markdown/text).
 
 These are **not** browser automation. For JS-heavy sites or logins, use the
@@ -54,7 +54,6 @@ The table above is alphabetical. If no `provider` is explicitly set, runtime aut
 6. **Perplexity** — `PERPLEXITY_API_KEY`, `OPENROUTER_API_KEY`, or `plugins.entries.perplexity.config.webSearch.apiKey`
 7. **Firecrawl** — `FIRECRAWL_API_KEY` env var or `plugins.entries.firecrawl.config.webSearch.apiKey`
 8. **Tavily** — `TAVILY_API_KEY` env var or `plugins.entries.tavily.config.webSearch.apiKey`
-
 
 If no keys are found, it falls back to Brave (you'll get a missing-key error prompting you to configure one).
 
