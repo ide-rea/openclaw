@@ -185,12 +185,12 @@ function createBaiduToolDefinition(
       });
       const payload = {
         query: params.query,
-        provider: params.provider,
+        provider: "baidu",
         tookMs: Date.now() - start,
         externalContent: {
           untrusted: true,
           source: "web_search",
-          provider: params.provider,
+          provider: "baidu",
           wrapped: true,
         },
         results: results,
