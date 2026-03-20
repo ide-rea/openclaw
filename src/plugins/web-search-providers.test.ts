@@ -9,6 +9,7 @@ import {
 } from "./web-search-providers.js";
 
 const BUNDLED_WEB_SEARCH_PROVIDERS = [
+  { pluginId: "baidu", id: "baidu", order: 5 },
   { pluginId: "brave", id: "brave", order: 10 },
   { pluginId: "google", id: "gemini", order: 20 },
   { pluginId: "xai", id: "grok", order: 30 },
@@ -91,6 +92,7 @@ describe("resolvePluginWebSearchProviders", () => {
     const providers = resolvePluginWebSearchProviders({});
 
     expect(providers.map((provider) => `${provider.pluginId}:${provider.id}`)).toEqual([
+      "baidu:baidu",
       "brave:brave",
       "google:gemini",
       "xai:grok",
@@ -100,6 +102,7 @@ describe("resolvePluginWebSearchProviders", () => {
       "tavily:tavily",
     ]);
     expect(providers.map((provider) => provider.credentialPath)).toEqual([
+      "plugins.entries.baidu.config.webSearch.apiKey",
       "plugins.entries.brave.config.webSearch.apiKey",
       "plugins.entries.google.config.webSearch.apiKey",
       "plugins.entries.xai.config.webSearch.apiKey",
@@ -127,6 +130,7 @@ describe("resolvePluginWebSearchProviders", () => {
     });
 
     expect(providers.map((provider) => provider.pluginId)).toEqual([
+      "baidu",
       "brave",
       "google",
       "xai",
@@ -181,6 +185,7 @@ describe("resolvePluginWebSearchProviders", () => {
     });
 
     expect(providers.map((provider) => `${provider.pluginId}:${provider.id}`)).toEqual([
+      "baidu:baidu",
       "brave:brave",
       "google:gemini",
       "xai:grok",
