@@ -1,15 +1,12 @@
 import { Type } from "@sinclair/typebox";
 import {
   buildSearchCacheKey,
-  DEFAULT_SEARCH_COUNT,
-  MAX_SEARCH_COUNT,
   readCachedSearchPayload,
   readConfiguredSecretString,
   readNumberParam,
   readProviderEnvValue,
   readStringParam,
   resolveSearchCacheTtlMs,
-  resolveSearchCount,
   resolveSearchTimeoutSeconds,
   resolveProviderWebSearchPluginConfig,
   setProviderWebSearchPluginConfigValue,
@@ -21,6 +18,8 @@ import {
   writeCachedSearchPayload,
 } from "openclaw/plugin-sdk/provider-web-search";
 
+const DEFAULT_SEARCH_COUNT = 10;
+const MAX_SEARCH_COUNT = 50;
 const BAIDU_SEARCH_API_ENDPOINT = "https://qianfan.baidubce.com/v2/ai_search/web_search";
 
 type BaiduConfig = {
@@ -44,7 +43,7 @@ function createBaiduSchema() {
     query: Type.String({ description: "Search query string." }),
     count: Type.Optional(
       Type.Number({
-        description: "Number of results to return (1-20).",
+        description: "Number of results to return (1-50).",
         minimum: 1,
         maximum: MAX_SEARCH_COUNT,
       }),
@@ -67,6 +66,12 @@ function resolveBaiduApiKey(baidu?: BaiduConfig): string | undefined {
     readConfiguredSecretString(baidu?.apiKey, "tools.web.search.baidu.apiKey") ??
     readProviderEnvValue(["BAIDU_SEARCH_API_KEY"])
   );
+}
+
+function resolveSearchCount(value: unknown, fallback: number): number {
+  const parsed = typeof value === "number" && Number.isFinite(value) ? value : fallback;
+  const clamped = Math.max(1, Math.min(MAX_SEARCH_COUNT, Math.floor(parsed)));
+  return clamped;
 }
 
 async function runBaiduSearch(params: {
