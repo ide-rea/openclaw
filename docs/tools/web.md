@@ -71,7 +71,7 @@ returns results. Results are cached by query for 15 minutes (configurable).
     Structured results with search depth, topic filtering, and `tavily_extract` for URL extraction.
   </Card>
   <Card title="Baidu" icon="globe" href="/tools/baidu">
-     Structured results with snippets. 
+    Structured results with snippets. 
   </Card>
 </CardGroup>
 
