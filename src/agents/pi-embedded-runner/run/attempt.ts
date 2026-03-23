@@ -10,7 +10,7 @@ import {
 import {
   resolveTelegramInlineButtonsScope,
   resolveTelegramReactionLevel,
-} from "../../../../extensions/telegram/api.js";
+} from "../../../plugin-sdk/telegram.js";
 import { resolveHeartbeatPrompt } from "../../../auto-reply/heartbeat.js";
 import { resolveChannelCapabilities } from "../../../config/channel-capabilities.js";
 import type { OpenClawConfig } from "../../../config/config.js";
@@ -226,7 +226,8 @@ function createYieldAbortedResponse(model: { api?: string; provider?: string; id
   };
 }
 
-// Queue a hidden steering message so pi-agent-core skips any remaining tool calls.
+// Queue a hidden steering message so pi-agent-core injects it before the next
+// LLM call once the current assistant turn finishes executing its tool calls.
 function queueSessionsYieldInterruptMessage(activeSession: {
   agent: { steer: (message: AgentMessage) => void };
 }) {
