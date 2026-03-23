@@ -6,7 +6,6 @@ describe("resolveBundledPluginWebSearchProviders", () => {
     const providers = resolveBundledPluginWebSearchProviders({});
 
     expect(providers.map((provider) => `${provider.pluginId}:${provider.id}`)).toEqual([
-      "baidu:baidu",
       "brave:brave",
       "google:gemini",
       "xai:grok",
@@ -15,9 +14,9 @@ describe("resolveBundledPluginWebSearchProviders", () => {
       "firecrawl:firecrawl",
       "exa:exa",
       "tavily:tavily",
+      "baidu:baidu",
     ]);
     expect(providers.map((provider) => provider.credentialPath)).toEqual([
-      "plugins.entries.baidu.config.webSearch.apiKey",
       "plugins.entries.brave.config.webSearch.apiKey",
       "plugins.entries.google.config.webSearch.apiKey",
       "plugins.entries.xai.config.webSearch.apiKey",
@@ -26,6 +25,7 @@ describe("resolveBundledPluginWebSearchProviders", () => {
       "plugins.entries.firecrawl.config.webSearch.apiKey",
       "plugins.entries.exa.config.webSearch.apiKey",
       "plugins.entries.tavily.config.webSearch.apiKey",
+      "plugins.entries.baidu.config.webSearch.apiKey",
     ]);
     expect(providers.find((provider) => provider.id === "firecrawl")?.applySelectionConfig).toEqual(
       expect.any(Function),
@@ -46,7 +46,6 @@ describe("resolveBundledPluginWebSearchProviders", () => {
     });
 
     expect(providers.map((provider) => provider.pluginId)).toEqual([
-      "baidu",
       "brave",
       "google",
       "xai",
@@ -55,6 +54,7 @@ describe("resolveBundledPluginWebSearchProviders", () => {
       "firecrawl",
       "exa",
       "tavily",
+      "baidu",
     ]);
   });
 
@@ -102,7 +102,6 @@ describe("resolveBundledPluginWebSearchProviders", () => {
     });
 
     expect(providers.map((provider) => `${provider.pluginId}:${provider.id}`)).toEqual([
-      "baidu:baidu",
       "brave:brave",
       "google:gemini",
       "xai:grok",
@@ -111,6 +110,7 @@ describe("resolveBundledPluginWebSearchProviders", () => {
       "firecrawl:firecrawl",
       "exa:exa",
       "tavily:tavily",
+      "baidu:baidu",
     ]);
   });
 
