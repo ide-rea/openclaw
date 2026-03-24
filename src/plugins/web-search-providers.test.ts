@@ -2,29 +2,31 @@ import { describe, expect, it } from "vitest";
 import { resolveBundledPluginWebSearchProviders } from "./web-search-providers.js";
 
 describe("resolveBundledPluginWebSearchProviders", () => {
-  it("returns bundled providers in auto-detect order", () => {
+  it("returns bundled providers in alphabetical order", () => {
     const providers = resolveBundledPluginWebSearchProviders({});
 
     expect(providers.map((provider) => `${provider.pluginId}:${provider.id}`)).toEqual([
       "brave:brave",
+      "duckduckgo:duckduckgo",
+      "exa:exa",
+      "firecrawl:firecrawl",
       "google:gemini",
       "xai:grok",
       "moonshot:kimi",
       "perplexity:perplexity",
-      "firecrawl:firecrawl",
-      "exa:exa",
       "tavily:tavily",
       "baidu:baidu",
       "duckduckgo:duckduckgo",
     ]);
     expect(providers.map((provider) => provider.credentialPath)).toEqual([
       "plugins.entries.brave.config.webSearch.apiKey",
+      "",
+      "plugins.entries.exa.config.webSearch.apiKey",
+      "plugins.entries.firecrawl.config.webSearch.apiKey",
       "plugins.entries.google.config.webSearch.apiKey",
       "plugins.entries.xai.config.webSearch.apiKey",
       "plugins.entries.moonshot.config.webSearch.apiKey",
       "plugins.entries.perplexity.config.webSearch.apiKey",
-      "plugins.entries.firecrawl.config.webSearch.apiKey",
-      "plugins.entries.exa.config.webSearch.apiKey",
       "plugins.entries.tavily.config.webSearch.apiKey",
       "plugins.entries.baidu.config.webSearch.apiKey",
     ]);
@@ -48,12 +50,13 @@ describe("resolveBundledPluginWebSearchProviders", () => {
 
     expect(providers.map((provider) => provider.pluginId)).toEqual([
       "brave",
+      "duckduckgo",
+      "exa",
+      "firecrawl",
       "google",
       "xai",
       "moonshot",
       "perplexity",
-      "firecrawl",
-      "exa",
       "tavily",
       "baidu",
       "duckduckgo",
@@ -105,12 +108,13 @@ describe("resolveBundledPluginWebSearchProviders", () => {
 
     expect(providers.map((provider) => `${provider.pluginId}:${provider.id}`)).toEqual([
       "brave:brave",
+      "duckduckgo:duckduckgo",
+      "exa:exa",
+      "firecrawl:firecrawl",
       "google:gemini",
       "xai:grok",
       "moonshot:kimi",
       "perplexity:perplexity",
-      "firecrawl:firecrawl",
-      "exa:exa",
       "tavily:tavily",
       "baidu:baidu",
       "duckduckgo:duckduckgo",
