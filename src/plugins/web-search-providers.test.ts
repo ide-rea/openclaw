@@ -104,7 +104,6 @@ describe("resolveBundledPluginWebSearchProviders", () => {
     },
   ] as const)("$title", { timeout: WEB_SEARCH_PROVIDER_TEST_TIMEOUT_MS }, ({ options }) => {
     const providers = resolveBundledPluginWebSearchProviders(options);
-
     expectBundledWebSearchProviders(providers);
     expect(providers.find((provider) => provider.id === "firecrawl")?.applySelectionConfig).toEqual(
       expect.any(Function),
@@ -173,6 +172,7 @@ describe("resolveBundledPluginWebSearchProviders", () => {
           plugins: {
             entries: {
               perplexity: { enabled: false },
+
             },
           },
         },
